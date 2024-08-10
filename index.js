@@ -2,10 +2,30 @@ const http = require('http')
 const express = require('express')
 const path  = require('path')
 const {Server} = require('socket.io')
-const { getMessages,getLocationMessages } = require('./utils/message')
+const exphbs = require('express-handlebars');
+const { getMessages,getLocationMessages } = require('./utils/message');
+const routes = require('./routes/routes')
 
 const app = express()
+
+//MIDDLEWARE
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/public", express.static(path.join(__dirname, "public"))); //we have add multiple static folders
+
+app.engine(
+  "hbs",
+  exphbs.engine({
+    extname: "hbs",
+    defaultLayout: "default",
+  })
+);
+
+app.set('view engine', 'hbs')
+app.set('views', 'views')
+
 const server = http.createServer(app)
+
 const io = new Server(server)
 
 io.on("connection",(socket)=>{
@@ -36,13 +56,9 @@ io.on("connection",(socket)=>{
     // })
 })
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "./public")));
+//BASE ROUTE
+app.use('/api',routes)
 
-app.get('/',(req, res)=>{
-    return res.sendFile('/public/index.html')
-})
 
 server.listen(3000,()=>{
     console.log("server is connected");

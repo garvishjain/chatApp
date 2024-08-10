@@ -50,17 +50,29 @@ socket.on('newLocationMessage',(msg)=>{
 //     console.log('Got It.',msg);  
 // })
 
+$(()=>{
+    $("#subnmit-btn").on("click", e =>{
+        e.preventDefault();
 
-document.querySelector('#submit-btn').addEventListener('click',function(e){
-    e.preventDefault();
-
-    socket.emit('createMessage',{
-        from: "User",
-        msg: document.querySelector('input[name="msg"]').value
-    },()=>{
-
+        socket.emit('createMessage',{
+            from: "User",
+            msg: $(document).querySelector('input[name="msg"]').value
+        },()=>{
+    
+        })
     })
 })
+
+// document.querySelector('#submit-btn').addEventListener('click',function(e){
+//     e.preventDefault();
+
+//     socket.emit('createMessage',{
+//         from: "User",
+//         msg: document.querySelector('input[name="msg"]').value
+//     },()=>{
+
+//     })
+// })
 
 document.querySelector('#send-location').addEventListener('click',function(e){
     if(!navigator.geolocation){
