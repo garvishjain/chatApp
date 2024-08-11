@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/jquery.min.js"></script>
     <title>Chat Boat</title>
 </head>
 <body>
-    <h1>Chatting</h1>
-    <input type="text" id="message" placeholder="send message" />
-    <button id="sendBtn">Send</button>
-
+    <h1>Chatting App</h1>
 
     <form action="" id="message-form">
         <input type="text" name="msg" placeholder="message">
@@ -20,8 +20,10 @@
 
     <div id="messages"></div>
 
-
     <script src="/socket.io/socket.io.js"></script>
-    <script type = "text/javascript" src="/js/index.js"></script>
+    <script type = "text/javascript" src="../public/utilfunction/index.js"></script>
+    {{#each scripts}}
+    <script src="{{.}}"></script>
+    {{/each}}
 </body>
 </html>
