@@ -5,14 +5,18 @@ const {Server} = require('socket.io')
 const exphbs = require('express-handlebars');
 const { getMessages,getLocationMessages } = require('./utils/message');
 const routes = require('./routes/routes')
-
 const app = express()
 
-//MIDDLEWARE
+/** Create The Socket Server */
+const server = http.createServer(app)
+const io = new Server(server)
+
+/** MIDDLEWARE */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, "public"))); //we have add multiple static folders
 
+/** Set The Views */
 app.engine(
   "hbs",
   exphbs.engine({
@@ -20,14 +24,10 @@ app.engine(
     defaultLayout: "default",
   })
 );
-
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-const server = http.createServer(app)
-
-const io = new Server(server)
-
+/** Create the socket connection here */
 io.on("connection",(socket)=>{
     console.log("A new user has connected", socket.id);
 
@@ -47,19 +47,13 @@ io.on("connection",(socket)=>{
 
     socket.on('disconnect', ()=>{
         console.log('User was disconnect.');
-        
     })
-
-    // socket.on('user-message',(message)=>{
-    //     io.emit('message',message)
-    //     console.log("A new User Message", message);
-    // })
 })
 
 //BASE ROUTE
 app.use('/api',routes)
 
-
+/** App Server */
 server.listen(3000,()=>{
     console.log("server is connected");
 })

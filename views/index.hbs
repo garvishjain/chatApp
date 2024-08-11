@@ -9,10 +9,7 @@
     <title>Chat Boat</title>
 </head>
 <body>
-    <h1>Chatting</h1>
-    <input type="text" id="message" placeholder="send message" />
-    <button id="sendBtn">Send</button>
-
+    <h1>Chatting App</h1>
 
     <form action="" id="message-form">
         <input type="text" name="msg" placeholder="message">
@@ -23,9 +20,8 @@
 
     <div id="messages"></div>
 
-
     <script src="/socket.io/socket.io.js"></script>
-    {{!-- <script type = "text/javascript" src="/utilfunction/index.js"></script> --}}
+    <script type = "text/javascript" src="../public/utilfunction/index.js"></script>
     {{#each scripts}}
     <script src="{{.}}"></script>
     {{/each}}
