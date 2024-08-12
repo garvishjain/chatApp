@@ -1,6 +1,6 @@
 'use strict'
-const { log } = require('winston')
-const db = require('../../database/models/index.js')
+// const { log } = require('winston')
+const db = require('../../database/model/index')
 const sequelize = require('sequelize')
 // let transaction = new sequelize.Transaction()
 const postgreConnection = {

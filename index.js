@@ -1,10 +1,12 @@
 const http = require('http')
 const express = require('express')
 const path  = require('path')
+require('./database/model')
+require('dotenv').config();
 const {Server} = require('socket.io')
 const exphbs = require('express-handlebars');
 const { getMessages,getLocationMessages } = require('./utils/message');
-const routes = require('./routes/routes')
+const chatboatRoutes = require('./routes/ChatboatRoutes')
 const app = express()
 
 /** Create The Socket Server */
@@ -51,9 +53,9 @@ io.on("connection",(socket)=>{
 })
 
 //BASE ROUTE
-app.use('/api',routes)
+app.use('/api', chatboatRoutes)
 
 /** App Server */
-server.listen(3000,()=>{
+server.listen(process.env.PORT,()=>{
     console.log("server is connected");
 })
